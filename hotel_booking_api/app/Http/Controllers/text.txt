@@ -1,0 +1,42 @@
+
+// SELECT room.room_id
+// FROM rooms room
+// LEFT JOIN booking_rooms bkr ON room.room_id = bkr.room_id
+// LEFT JOIN bookings bk ON bkr.booking_id = bk.booking_id
+// WHERE room.hotel_id = 1
+//   AND (bk.booking_id IS NULL 
+//        OR bk.check_out_date < '2024-12-8' 
+//       	OR bk.check_in_date > '2024-12-10'
+// 		);
+
+SELECT rt.room_type_id,rt.room_type_name, COUNT(room.room_id) AS so_luong
+FROM room_types rt
+JOIN rooms room ON rt.room_type_id=room.room_type_id
+LEFT JOIN booking_rooms bkr ON room.room_id = bkr.room_id
+LEFT JOIN bookings bk ON bkr.booking_id = bk.booking_id
+WHERE room.hotel_id = 1
+  AND (bk.booking_id IS NULL 
+       OR bk.check_out_date < '2024-12-8' 
+      	OR bk.check_in_date > '2024-12-10'
+		 )		 
+GROUP BY rt.room_type_id
+
+
+
+INSERT INTO `users` (`user_id`, `email`, `username`, `password`, `role`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'john.doe@example.com', 'john_doe', 'hashed_password_1', 'Customer', 'Active', '2024-12-16 03:01:22', '2024-12-16 03:01:22'),
+(2, 'jane.smith@example.com', 'jane_smith', 'hashed_password_2', 'HotelStaff', 'Active', '2024-12-16 03:01:22', '2024-12-16 03:01:22');
+
+
+
+INSERT INTO `bookings` (`booking_id`, `user_id`, `hotel_id`, `check_in_date`, `check_out_date`, `total_amount`, `status`, `booking_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2024-12-05', '2024-12-07', 500.00, 'Confirmed', '2024-12-16 03:03:38', '2024-12-16 03:03:38', '2024-12-16 03:03:38'),
+(2, 2, 1, '2024-12-07', '2024-12-10', 300.00, 'Pending', '2024-12-17 03:03:38', '2024-12-16 03:03:38', '2024-12-16 03:03:38');
+
+
+
+INSERT INTO `booking_rooms` (`booking_id`, `room_id`, `created_at`, `updated_at`) VALUES
+(1, 23, '2024-12-16 03:30:00', '2024-12-16 03:30:00'),
+(1, 120, '2024-12-16 04:00:00', '2024-12-16 04:00:00'),
+(2, 120, '2024-12-16 06:00:00', '2024-12-16 06:00:00'),
+(2, 155, '2024-12-16 07:00:00', '2024-12-16 07:00:00');

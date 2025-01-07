@@ -1,0 +1,15 @@
+.hotel_text {
+    display: -webkit-box;           
+    -webkit-line-clamp: 2;          
+    -webkit-box-orient: vertical;  
+    overflow: hidden;             
+    text-overflow: ellipsis;        
+    white-space: normal;           
+    max-width: 100%;              
+    line-height: 1.5;              
+}
+
+.color_btn{
+    background-color: #ed5b31 !important;
+    color: white !important;
+}
